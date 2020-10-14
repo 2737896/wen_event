@@ -1,39 +1,7 @@
 $(function () {
-    // 封装获取用户基本信息函数
-    function getUserInfo() {
-        $.ajax({
-            method: 'GET',
-            url: '/my/userinfo',
-            // headers: {
-            //     Authorization: localStorage.getItem('token') || ''
-            // },
-            success: function (res) {
-                if (res.status !== 0) {
-                    return layui.layer.msg('获取用户信息失败')
-                }
-                // 调用renderAvater 渲染用户的头像
-                renderAvater(res.data)
-            },
-            //不论成功还是失败 最终都会调用complete函数
-            // complete: function (res) {
-            //     //在complete回调函数中 可以使用res.responseJSON拿到服务器响应回来的数据
-            //     if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
-            //         //清除本地token
-            //         localStorage.removeItem('token')
-            //         //跳转回首页
-            //         location.href = '/login.html'
-            //     }
-            // }
-
-
-        })
-    }
-
     // 获取用户的基本信息 调用获取函数
     getUserInfo()
-
     var layer = layui.layer
-
     $('#btnLogout').on('click', function () {
         layer.confirm('是否退出', { icon: 3, title: '提示' }, function (index) {
             //do something
@@ -45,13 +13,34 @@ $(function () {
             layer.close(index)
         })
     })
-
-
-
-
-
-
-
+})
+  // 封装获取用户基本信息函数
+  function getUserInfo() {
+    $.ajax({
+        method: 'GET',
+        url: '/my/userinfo',
+        // headers: {
+        //     Authorization: localStorage.getItem('token') || ''
+        // },
+        success: function (res) {
+            if (res.status !== 0) {
+                return layui.layer.msg('获取用户信息失败')
+            }
+            // 调用renderAvater 渲染用户的头像
+            renderAvater(res.data)
+        },
+        //不论成功还是失败 最终都会调用complete函数
+        // complete: function (res) {
+        //     //在complete回调函数中 可以使用res.responseJSON拿到服务器响应回来的数据
+        //     if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+        //         //清除本地token
+        //         localStorage.removeItem('token')
+        //         //跳转回首页
+        //         location.href = '/login.html'
+        //     }
+        // }
+    })
+}
     // 渲染用户的头像
     function renderAvater(user) {
         // 渲染用户信息 有优先级
@@ -70,18 +59,3 @@ $(function () {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-})
